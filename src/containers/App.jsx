@@ -13,11 +13,14 @@ import PreviewPage from "../components/PreviewPage/PreviewPage";
 import "./App.css";
 
 let App = props => {
-  //const {  } = props;
+  const { listPhotos } = props;
+
+  console.log(props);
+  
 
   return (
     <Router>
-      <div>
+      <div className="container">
         <nav>
           <ul>
             <li>
@@ -34,7 +37,7 @@ let App = props => {
             <PreviewPage />
           </Route>
           <Route path="/">
-            <MainPage />
+            <MainPage listPhotos={listPhotos} />
           </Route>
         </Switch>
       </div>
@@ -44,7 +47,7 @@ let App = props => {
 
 const mapStateToProps = state => {
   return {
-    
+    listPhotos: state.listPhotos
   };
 };
 

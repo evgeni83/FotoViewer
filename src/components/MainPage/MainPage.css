@@ -1,0 +1,12 @@
+.contentWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.imageCard {
+  flex: 0 0 18%;
+}
+
+.imageCard__img {
+  width: 100%;
+}
