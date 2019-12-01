@@ -1,13 +1,19 @@
 const mainReducer = (state, action) => {
   switch (action.type) {
-    case "TYPE_1":
-      return {
-        ...state,
+    case "SET_PREVIEW_IMAGE":
+            
+      const newState = {
+        listPhotos: state.listPhotos,
+        previewImage: {
+          img: action.img,
+          imgName: action.imgName,
+          imgAuthor: action.imgAuthor,
+          imgDate: action.imgDate,
+          isImgLiked: action.isImgLiked
+        }
       };
-    case "TYPE_2":
-      return {
-        ...state,
-      };
+      
+      return newState;
 
     default:
       return state;

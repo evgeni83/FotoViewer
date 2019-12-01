@@ -4,40 +4,25 @@ import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import MainPage from "../components/MainPage/MainPage";
 import PreviewPage from "../components/PreviewPage/PreviewPage";
-
+import { handleImageForPreview } from '../actions/action';
 import "./App.css";
 
 let App = props => {
-  const { listPhotos } = props;
-
-  console.log(props);
-  
+  const { listPhotos, previewImage } = props.state;
 
   return (
     <Router>
       <div className="container">
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">MainPage</Link>
-            </li>
-            <li>
-              <Link to="/preview">PreviewPage</Link>
-            </li>
-          </ul>
-        </nav>
-
         <Switch>
           <Route path="/preview">
-            <PreviewPage />
+            <PreviewPage previewImage={previewImage}/>
           </Route>
           <Route path="/">
-            <MainPage listPhotos={listPhotos} />
+            <MainPage listPhotos={listPhotos} handleImageForPreview={props.handleImageForPreview} />
           </Route>
         </Switch>
       </div>
@@ -47,13 +32,13 @@ let App = props => {
 
 const mapStateToProps = state => {
   return {
-    listPhotos: state.listPhotos
+    state
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    
+    handleImageForPreview: ev => dispatch(handleImageForPreview(ev))
   };
 };
 
