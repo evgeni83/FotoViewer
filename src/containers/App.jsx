@@ -21,7 +21,7 @@ let App = props => {
           <Route path="/preview">
             <PreviewPage previewImage={previewImage}/>
           </Route>
-          <Route path="/">
+          <Route exact path="/">
             <MainPage listPhotos={listPhotos} handleImageForPreview={props.handleImageForPreview} />
           </Route>
         </Switch>
