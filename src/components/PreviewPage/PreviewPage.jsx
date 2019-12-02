@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import './PreviewPage.css';
 
 const PreviewPage = (props) => {
 
@@ -12,7 +13,7 @@ const PreviewPage = (props) => {
         <NavLink to="/main">Go back to main page</NavLink>
       </div>
       <div>
-        <img src={previewImage.img} alt="img" className="" />
+        <img src={previewImage.img} alt="img" className="previewImg" />
         <p>{previewImage.imgAuthor}</p>
       </div>
     </div>
