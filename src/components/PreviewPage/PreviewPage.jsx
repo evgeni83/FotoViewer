@@ -4,7 +4,8 @@ import './PreviewPage.css';
 
 const PreviewPage = (props) => {
 
-  const { previewImage } = props;
+  const { preview } = props;
+  console.log(preview);
 
   return (
     <div>
@@ -13,8 +14,8 @@ const PreviewPage = (props) => {
         <NavLink to="/main">Go back to main page</NavLink>
       </div>
       <div>
-        <img src={previewImage.img} alt="img" className="previewImg" />
-        <p>{previewImage.imgAuthor}</p>
+        <img src={preview.urls.full} alt="img" className="previewImg" />
+        <p>{preview.user.name}</p>
       </div>
     </div>
   )

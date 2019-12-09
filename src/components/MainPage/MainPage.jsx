@@ -1,21 +1,29 @@
 import React from "react";
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 import "./MainPage.css";
 
 const MainPage = props => {
-  const { listPhotos, handleImageForPreview } = props;
+  const { list, handlePhotoForPreview } = props;
 
   return (
     <div>
-      <h2>MainPage</h2>
+      <h2>Main Page</h2>
       <div className="contentWrapper">
-        {listPhotos.map((item, i) => {
+        {list.map((item, i) => {
           return (
-            <div key={i} className="imageCard" onClick={() => handleImageForPreview(item)} >
+            <div
+              key={i}
+              className="imageCard"
+              onClick={() => handlePhotoForPreview(item)}
+            >
               <NavLink to="/preview">
-                <img src={item.img} alt="img" className="imageCard__img" />
+                <img
+                  src={item.urls.thumb}
+                  alt="img"
+                  className="imageCard__img"
+                />
               </NavLink>
-              <p className="imageCard__imgName">{item.imgName}</p>
+              <p className="imageCard__imgName">{item.user.name}</p>
             </div>
           );
         })}
