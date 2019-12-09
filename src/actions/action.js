@@ -11,3 +11,17 @@ export const handlePhotoForPreview = photosListItem => {
     payload: photosListItem
   };
 };
+
+export const likeThePhoto = id => {
+  return {
+    type: "LIKE_THE_PHOTO",
+    payload: id
+  }
+}
+
+export const unlikeThePhoto = id => {
+  return {
+    type: "UNLIKE_THE_PHOTO",
+    payload: id
+  }
+}
