@@ -4,7 +4,6 @@ import "./MainPage.css";
 
 const MainPage = props => {
   const { list, handlePhotoForPreview } = props;
-
   return (
     <div>
       <h2>Main Page</h2>

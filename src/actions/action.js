@@ -12,16 +12,11 @@ export const handlePhotoForPreview = photosListItem => {
   };
 };
 
-export const likeThePhoto = id => {
+export const toggleLikeThePhoto = (id, liked_by_user) => {
   return {
-    type: "LIKE_THE_PHOTO",
-    payload: id
-  }
-}
+    type: "TOGGLE_LIKE_THE_PHOTO",
+    id: id,
+    liked_by_user: !liked_by_user
+  };
+};
 
-export const unlikeThePhoto = id => {
-  return {
-    type: "UNLIKE_THE_PHOTO",
-    payload: id
-  }
-}
