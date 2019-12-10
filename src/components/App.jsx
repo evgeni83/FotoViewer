@@ -6,7 +6,11 @@ import Unsplash, { toJson } from "unsplash-js";
 import Auth from "./Auth/Auth";
 import MainPage from "./MainPage/MainPage";
 import PreviewPage from "./PreviewPage/PreviewPage";
-import { getNewListOfPhotos, handlePhotoForPreview } from "../actions/action";
+import {
+  getNewListOfPhotos,
+  toggleLikeThePhoto,
+  handlePhotoForPreview
+} from "../actions/action";
 import "./App.css";
 
 export const unsplash = new Unsplash({
@@ -42,39 +46,41 @@ if (window.location.pathname === "/") {
 //     });
 // }
 
-let App = props => {
-  const { list, preview, getNewListOfPhotos, handlePhotoForPreview } = props;
-
-  if (list.length === 0) {
+class App extends React.Component {
+  componentDidMount() {
     unsplash.photos
       .listPhotos(1, 10, "latest")
       .then(toJson)
       .then(json => {
-        getNewListOfPhotos(json);
+        this.props.getNewListOfPhotos(json);
       });
   }
-
-  return (
-    <Router>
-      <div className="container">
-        <Switch>
-          <Route exact path="/">
-            <Auth />
-          </Route>
-          <Route exact path="/main">
-            <MainPage
-              list={list}
-              handlePhotoForPreview={handlePhotoForPreview}
-            />
-          </Route>
-          <Route exact path="/preview">
-            <PreviewPage preview={preview} />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
-  );
-};
+  render() {
+    return (
+      <Router>
+        <div className="container">
+          <Switch>
+            <Route exact path="/">
+              <Auth />
+            </Route>
+            <Route exact path="/main">
+              <MainPage
+                list={this.props.list}
+                handlePhotoForPreview={this.props.handlePhotoForPreview}
+              />
+            </Route>
+            <Route exact path="/preview">
+              <PreviewPage
+                preview={this.props.preview}
+                toggleLikeThePhoto={this.props.toggleLikeThePhoto}
+              />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
+}
 
 const mapStateToProps = state => {
   return state;
@@ -83,6 +89,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getNewListOfPhotos: bindActionCreators(getNewListOfPhotos, dispatch),
+    toggleLikeThePhoto: bindActionCreators(toggleLikeThePhoto, dispatch),
     handlePhotoForPreview: bindActionCreators(handlePhotoForPreview, dispatch)
   };
 };
