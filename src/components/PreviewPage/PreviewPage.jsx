@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Like from "../Like/Like";
-import Preloader from "../Preloader/Preloader";
 import { getThePhoto, toggleLikeThePhoto } from "../../actions/action";
 import "./PreviewPage.css";
 
@@ -12,32 +11,28 @@ class PreviewPage extends Component {
   }
 
   render() {
-    if (this.props.previewPhoto.id) {
-      return (
+    return (
+      <>
+        <h2>PreviewPage</h2>
         <div>
-          <h2>PreviewPage</h2>
-          <div>
-            <NavLink to="/main">Go back to main page</NavLink>
-            <div>{this.props.previewPhoto.likes} likes</div>
-            <Like
-              id={this.props.previewPhoto.id}
-              liked_by_user={this.props.previewPhoto.liked_by_user}
-              toggleLikeThePhoto={this.props.toggleLikeThePhoto}
-            />
-          </div>
-          <div>
-            <img
-              src={this.props.previewPhoto.urls.regular}
-              alt="img"
-              className="previewImg"
-            />
-            <p>{}</p>
-          </div>
+          <NavLink to="/main">Go back to main page</NavLink>
+          <div>{this.props.previewPhoto.likes} likes</div>
+          <Like
+            id={this.props.previewPhoto.id}
+            liked_by_user={this.props.previewPhoto.liked_by_user}
+            toggleLikeThePhoto={this.props.toggleLikeThePhoto}
+          />
         </div>
-      );
-    } else {
-      return <Preloader />;
-    }
+        <div>
+          <img
+            src={this.props.previewPhoto.urls ? this.props.previewPhoto.urls.regular : ""}
+            alt="img"
+            className="previewImg"
+          />
+          <p>{}</p>
+        </div>
+      </>
+    );
   }
 }
 

@@ -11,7 +11,7 @@ class MainPage extends Component {
 
   render() {
     return (
-      <div>
+      <>
         <h2>Main Page</h2>
         <div className="contentWrapper">
           {this.props.list.map((item, i) => {
@@ -32,7 +32,7 @@ class MainPage extends Component {
             );
           })}
         </div>
-      </div>
+      </>
     );
   }
 }

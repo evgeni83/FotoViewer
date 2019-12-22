@@ -4,6 +4,7 @@ import { toJson } from "unsplash-js";
 export const authorize = () => () => redirectToAuthPage();
 
 const listOfPhotos = (numberOfPages, photosPerPage, dispatch) => {
+  dispatch(setPreviewPhoto({}));
   unsplash.photos
     .listPhotos(numberOfPages, photosPerPage, "latest")
     .then(toJson)
@@ -16,7 +17,7 @@ export const getPhotos = (numberOfPages, photosPerPage) => dispatch => {
     localStorage.getItem("unsplashBearerToken") !== "undefined"
   ) {
     unsplash.auth.setBearerToken(localStorage.getItem("unsplashBearerToken"));
-    return listOfPhotos(numberOfPages, photosPerPage, dispatch);
+return listOfPhotos(numberOfPages, photosPerPage, dispatch);
   } else {
     const code = window.location.search.split("code=")[1];
     if (code) {
