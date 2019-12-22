@@ -1,6 +1,7 @@
 import React from "react";
 
 const Like = props => {
+
   let button;
 
   if (props.liked_by_user) {
@@ -11,7 +12,7 @@ const Like = props => {
 
   return (
     <button
-      onClick={() => props.toggleLikeThePhoto(props.id, props.liked_by_user)}
+      onClick={() => {props.toggleLikeThePhoto(props.id, props.liked_by_user)}}
     >
       {button}
     </button>

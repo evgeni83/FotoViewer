@@ -11,3 +11,7 @@
 .imageCard__img {
   width: 100%;
 }
+
+.imageCard__myLike {
+  color: red;
+}

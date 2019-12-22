@@ -1,12 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-const Auth = () => {
-  
-  return (
-    <div>
-      AUTH
-    </div>
-  )
+const Auth = ({ authorize }) => {
+  useEffect(() => authorize());
+  return <div>REDIRECT TO AUTH PAGE</div>;
 };
 
 export default Auth;

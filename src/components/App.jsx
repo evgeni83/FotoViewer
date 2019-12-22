@@ -1,96 +1,39 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import Unsplash, { toJson } from "unsplash-js";
 import Auth from "./Auth/Auth";
 import MainPage from "./MainPage/MainPage";
 import PreviewPage from "./PreviewPage/PreviewPage";
-import {
-  getNewListOfPhotos,
-  toggleLikeThePhoto,
-  handlePhotoForPreview
-} from "../actions/action";
+import { authorize } from "../actions/action";
 import "./App.css";
 
-export const unsplash = new Unsplash({
-  accessKey: "69a71056cc02e30857197cc9b6512542d933bc3b17e30eb385b6aba920bf5734",
-  secret: "351731b0a6ee01c5e04b2c865b630042e52bd9ef4c261baeb752be5f717c8331",
-  callbackUrl: "http://localhost:3000/main"
-});
-
-export const authenticationUrl = unsplash.auth.getAuthenticationUrl([
-  "public",
-  "write_likes"
-]);
-
-if (window.location.pathname === "/") {
-  window.location.assign(authenticationUrl);
-}
-
-// const code = window.location.search.split("code=")[1];
-
-// console.log(code);
-
-// if (code) {
-//   unsplash.auth
-//     .userAuthentication(code)
-//     .then(res => res.json())
-//     .then(json => {
-//       // Сохраняем полученный токен
-//       console.log(json);
-//       unsplash.auth.setBearerToken(json.access_token);
-//       // Теперь можно сделать что-то от имени пользователя
-//       // Например, поставить лайк фотографии
-//       console.log(unsplash._bearerToken);
-//     });
-// }
-
-class App extends React.Component {
-  componentDidMount() {
-    unsplash.photos
-      .listPhotos(1, 10, "latest")
-      .then(toJson)
-      .then(json => {
-        this.props.getNewListOfPhotos(json);
-      });
-  }
-  render() {
-    return (
-      <Router>
-        <div className="container">
-          <Switch>
-            <Route exact path="/">
-              <Auth />
-            </Route>
-            <Route exact path="/main">
-              <MainPage
-                list={this.props.list}
-                handlePhotoForPreview={this.props.handlePhotoForPreview}
-              />
-            </Route>
-            <Route exact path="/preview">
-              <PreviewPage
-                preview={this.props.preview}
-                toggleLikeThePhoto={this.props.toggleLikeThePhoto}
-              />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
-    );
-  }
-}
-
-const mapStateToProps = state => {
-  return state;
+const App = ({ authorize, list }) => {
+  return (
+    <Router>
+      <div className="container">
+        <Switch>
+          <Route exact path="/">
+            <Auth authorize={authorize} />
+          </Route>
+          <Route exact path="/main">
+            <MainPage list={list} />
+          </Route>
+          <Route path="/preview/:photoId">
+            <PreviewPage />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  );
 };
+
+const mapStateToProps = state => state;
 
 const mapDispatchToProps = dispatch => {
   return {
-    getNewListOfPhotos: bindActionCreators(getNewListOfPhotos, dispatch),
-    toggleLikeThePhoto: bindActionCreators(toggleLikeThePhoto, dispatch),
-    handlePhotoForPreview: bindActionCreators(handlePhotoForPreview, dispatch)
+    authorize: () => {
+      dispatch(authorize());
+    }
   };
 };
 
