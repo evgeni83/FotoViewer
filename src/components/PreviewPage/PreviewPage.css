@@ -1,4 +1,12 @@
 .previewImg {
     display: block;
     width: 100%;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 1s;
+}
+
+.previewImg.loaded {
+    visibility: visible;
+    opacity: 1;
 }

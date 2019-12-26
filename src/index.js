@@ -8,11 +8,7 @@ import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
 import "./index.css";
 
-const store = createStore(
-  mainReducer,
-  { list: [], previewPhoto: {} },
-  applyMiddleware(thunk)
-);
+const store = createStore(mainReducer, applyMiddleware(thunk));
 
 window.store = store;
 

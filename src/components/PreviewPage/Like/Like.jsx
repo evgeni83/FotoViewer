@@ -12,6 +12,7 @@ const Like = props => {
 
   return (
     <button
+      disabled={!props.isButtonEnabled}
       onClick={() => {props.toggleLikeThePhoto(props.id, props.liked_by_user)}}
     >
       {button}

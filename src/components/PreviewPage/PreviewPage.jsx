@@ -1,55 +1,30 @@
-import React, { Component } from "react";
-import { NavLink, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import Like from "../Like/Like";
-import { getThePhoto, toggleLikeThePhoto } from "../../actions/action";
-import "./PreviewPage.css";
+import React from "react";
+import { NavLink } from "react-router-dom";
+import Like from "./Like/Like";
+import PreviewPhoto from "./PreviewPhoto/PreviewPhoto";
 
-class PreviewPage extends Component {
-  componentDidMount() {
-    this.props.getThePhoto(this.props.match.params.photoId);
-  }
-
-  render() {
-    return (
-      <>
-        <h2>PreviewPage</h2>
-        <div>
-          <NavLink to="/main">Go back to main page</NavLink>
-          <div>{this.props.previewPhoto.likes} likes</div>
-          <Like
-            id={this.props.previewPhoto.id}
-            liked_by_user={this.props.previewPhoto.liked_by_user}
-            toggleLikeThePhoto={this.props.toggleLikeThePhoto}
-          />
-        </div>
-        <div>
-          <img
-            src={this.props.previewPhoto.urls ? this.props.previewPhoto.urls.regular : ""}
-            alt="img"
-            className="previewImg"
-          />
-          <p>{}</p>
-        </div>
-      </>
-    );
-  }
-}
-
-const mapStateToProps = state => state;
-
-const mapDispatchToProps = dispatch => {
-  return {
-    getThePhoto: id => {
-      dispatch(getThePhoto(id));
-    },
-    toggleLikeThePhoto: (id, liked_by_user) => {
-      dispatch(toggleLikeThePhoto(id, liked_by_user));
-    }
-  };
+const PreviewPage = props => {
+  return (
+    <>
+      <h2>PreviewPage</h2>
+      <div>
+        <NavLink to="/main">Go back to main page</NavLink>
+        <div>{props.previewPhoto.likes} likes</div>
+        <Like
+          id={props.previewPhoto.id}
+          liked_by_user={props.previewPhoto.liked_by_user}
+          toggleLikeThePhoto={props.toggleLikeThePhoto}
+          isButtonEnabled={props.isButtonEnabled}
+        />
+      </div>
+      <div>
+        <PreviewPhoto
+          urls={props.previewPhoto.urls}
+          showThePhoto={props.showThePhoto}
+        />
+      </div>
+    </>
+  );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(PreviewPage));
+export default PreviewPage;

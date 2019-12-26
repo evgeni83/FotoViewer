@@ -5,13 +5,14 @@
 }
 
 .imageCard {
-  flex: 0 0 18%;
+  flex: 0 0 33%;
+  transition: all 0.5s;
+}
+
+.imageCard:hover {
+  transform: scale(1.01);
 }
 
 .imageCard__img {
   width: 100%;
-}
-
-.imageCard__myLike {
-  color: red;
 }
