@@ -32,9 +32,8 @@ export const toggleLikeThePhoto = (list, id, liked_by_user) => dispatch => {
       .likePhoto(id)
       .then(toJson)
       .then(json => {
-        dispatch(setLikeStatus(json.photo.id, json.photo.liked_by_user));
+        dispatch(setLikeStatus(json.photo));
         const previewPhoto = list.find(item => item.id === json.photo.id);
-        previewPhoto.likes = json.photo.likes;
         dispatch(setPreviewPhoto(previewPhoto));
         dispatch(isButtonEnabledAC(true));
       });
@@ -43,9 +42,8 @@ export const toggleLikeThePhoto = (list, id, liked_by_user) => dispatch => {
       .unlikePhoto(id)
       .then(toJson)
       .then(json => {
-        dispatch(setLikeStatus(json.photo.id, json.photo.liked_by_user));
+        dispatch(setLikeStatus(json.photo));
         const previewPhoto = list.find(item => item.id === json.photo.id);
-        previewPhoto.likes = json.photo.likes;
         dispatch(setPreviewPhoto(previewPhoto));
         dispatch(isButtonEnabledAC(true));
       });
@@ -60,6 +58,6 @@ const setPreviewPhoto = previewPhoto => {
   return { type: "SET_PREVIEW_PHOTO", previewPhoto };
 };
 
-const setLikeStatus = (id, liked_by_user) => {
-  return { type: "SET_LIKE_STATUS", id, liked_by_user };
+const setLikeStatus = photo => {
+  return { type: "SET_LIKE_STATUS", photo };
 };
