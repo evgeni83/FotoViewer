@@ -5,7 +5,7 @@
 }
 
 .imageCard {
-  flex: 0 0 33%;
+  flex: 0 0 20%;
   transition: all 0.5s;
 }
 

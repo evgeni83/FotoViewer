@@ -1,10 +1,15 @@
 import React from "react";
 
-const Like = props => {
-
+const Like = ({
+  list,
+  id,
+  liked_by_user,
+  toggleLikeThePhoto,
+  isButtonEnabled
+}) => {
   let button;
 
-  if (props.liked_by_user) {
+  if (liked_by_user) {
     button = "LIKED";
   } else {
     button = "UNLIKED";
@@ -12,8 +17,10 @@ const Like = props => {
 
   return (
     <button
-      disabled={!props.isButtonEnabled}
-      onClick={() => {props.toggleLikeThePhoto(props.id, props.liked_by_user)}}
+      disabled={!isButtonEnabled}
+      onClick={() => {
+        toggleLikeThePhoto(list, id, liked_by_user);
+      }}
     >
       {button}
     </button>

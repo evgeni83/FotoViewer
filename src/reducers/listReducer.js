@@ -8,6 +8,15 @@ export const listReducer = (state = initialState, action) => {
     case "SHOW_CURRENT_LIST":
       return action.list;
 
+    case "SET_LIKE_STATUS":
+      const newState = state.map(item => {
+        if (item.id === action.id) {
+          item.liked_by_user = action.liked_by_user;
+        }
+        return item;
+      });
+      return newState;
+
     default:
       return state;
   }

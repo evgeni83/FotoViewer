@@ -16,7 +16,7 @@ class MainPageContainer extends Component {
   componentDidMount() {
     this.props.getPhotos(
       this.props.pagesCounter,
-      20,
+      this.props.photosPerPage,
       this.props.list,
       this.props.previewPhoto
     );
@@ -53,7 +53,7 @@ class MainPageContainer extends Component {
         await this.props.incrementPagesCounter();
         this.props.getPhotos(
           this.props.pagesCounter,
-          20,
+          this.props.photosPerPage,
           this.props.list,
           this.props.previewPhoto
         );

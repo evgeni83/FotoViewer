@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import Auth from "./Auth/Auth";
 import MainPageContainer from "./MainPage/MainPageContainer";
-import PreviewPage from "./PreviewPage/PreviewPageContainer";
+import PreviewPageContainer from "./PreviewPage/PreviewPageContainer";
 import { authorize } from "../actions/authAction";
 import "./App.css";
 
@@ -19,7 +19,7 @@ const App = ({ authorize, list }) => {
             <MainPageContainer list={list} />
           </Route>
           <Route path="/preview/:photoId">
-            <PreviewPage list={list} />
+            <PreviewPageContainer list={list} />
           </Route>
         </Switch>
       </div>

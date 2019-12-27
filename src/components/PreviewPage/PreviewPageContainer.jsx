@@ -13,7 +13,9 @@ class PreviewPageContainer extends Component {
   componentDidMount() {
     const list = this.props.list;
     const previewPhotoId = this.props.match.params.photoId;
-    this.props.getThePhoto(list, previewPhotoId);
+    const numberOfPages = this.props.pagesCounter;
+    const photosPerPage = this.props.photosPerPage;
+    this.props.getThePhoto(list, previewPhotoId, numberOfPages, photosPerPage);
   }
 
   showThePhoto = e => {
@@ -24,6 +26,7 @@ class PreviewPageContainer extends Component {
   render() {
     return (
       <PreviewPage
+        list={this.props.list}
         previewPhoto={this.props.previewPhoto}
         toggleLikeThePhoto={this.props.toggleLikeThePhoto}
         isButtonEnabled={this.props.isButtonEnabled}
@@ -37,11 +40,11 @@ const mapStateToProps = state => state;
 
 const mapDispatchToProps = dispatch => {
   return {
-    getThePhoto: (list, id) => {
-      dispatch(getThePhoto(list, id));
+    getThePhoto: (list, id, numberOfPages, photosPerPage) => {
+      dispatch(getThePhoto(list, id, numberOfPages, photosPerPage));
     },
-    toggleLikeThePhoto: (id, liked_by_user) => {
-      dispatch(toggleLikeThePhoto(id, liked_by_user));
+    toggleLikeThePhoto: (list, id, liked_by_user) => {
+      dispatch(toggleLikeThePhoto(list, id, liked_by_user));
     },
     isButtonEnabledAC: isEnabled => {
       dispatch(isButtonEnabledAC(isEnabled));
