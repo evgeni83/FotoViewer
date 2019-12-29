@@ -1,4 +1,7 @@
 import React from "react";
+import liked from "./liked.png";
+import unliked from "./unliked.png";
+import "./Like.css"
 
 const Like = ({
   list,
@@ -7,22 +10,23 @@ const Like = ({
   toggleLikeThePhoto,
   isButtonEnabled
 }) => {
-  let button;
+  let heart;
 
   if (liked_by_user) {
-    button = "LIKED";
+    heart = liked;
   } else {
-    button = "UNLIKED";
+    heart = unliked;
   }
 
   return (
     <button
+      className="likeButton"
       disabled={!isButtonEnabled}
       onClick={() => {
         toggleLikeThePhoto(list, id, liked_by_user);
       }}
     >
-      {button}
+      <img src={heart} alt="like" className="likeButtonImage" />
     </button>
   );
 };

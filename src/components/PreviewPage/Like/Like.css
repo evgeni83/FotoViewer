@@ -1,0 +1,8 @@
+.likeButton {
+    background-color: transparent;
+    border: none;
+}
+
+.likeButtonImage {
+    cursor: pointer;
+}
