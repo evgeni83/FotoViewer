@@ -15,19 +15,20 @@ const MainPage = props => (
               href={item.user.links.html}
               target="_blank"
               rel="noopener noreferrer"
+              className="imageCard__imgAuthorlink"
             >
-              <p className="imageCard__imgName">{item.user.name || item.id}</p>
+              {item.user.name || item.id}
             </a>
-            <p>
+            <p className="imageCard__imgDate">
               {new Date(
                 Date.parse(item.promoted_at || item.created_at)
-              ).toLocaleDateString("en", {
+              ).toLocaleDateString("ru-RU", {
                 year: "numeric",
-                month: "long",
+                month: "numeric",
                 day: "numeric"
               })}
             </p>
-            <p className="imageCard__myLike">{item.likes} likes</p>
+            <p className="imageCard__likes">{item.likes}</p>
           </div>
         );
       })}

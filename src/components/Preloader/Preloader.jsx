@@ -1,4 +1,4 @@
 import React from 'react';
 import preloader from "./5-1.svg";
 
-export default () => <img src={preloader} alt="preloader"/>;
+export default () => <div className="preloaderWrapper"><img src={preloader} alt="preloader" className="preloader"/></div>;
