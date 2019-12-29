@@ -2,53 +2,58 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Like from "./Like/Like";
 import PreviewPhoto from "./PreviewPhoto/PreviewPhoto";
+import backArrow from "./icons8-back-arrow-100.png";
+import Preloader from "../Preloader/Preloader";
 
-const PreviewPage = props => {
+const PreviewPage = ({
+  list,
+  previewPhoto,
+  toggleLikeThePhoto,
+  isButtonEnabled,
+  showThePhoto,
+  togglePhotoSize
+}) => {
   return (
-    <>
-      <h2>PreviewPage</h2>
-      <div>
-        <NavLink to="/main">Go back to main page</NavLink>
-        <a
-          href={
-            props.previewPhoto.user ? props.previewPhoto.user.links.html : "#"
-          }
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <p className="imageCard__imgName">
-            {props.previewPhoto.user
-              ? props.previewPhoto.user.name || props.previewPhoto.id
-              : "noname"}
-          </p>
-        </a>
-        <p>
-          {new Date(
-            Date.parse(
-              props.previewPhoto.promoted_at || props.previewPhoto.created_at
-            )
-          ).toLocaleDateString("en", {
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-          })}
-        </p>
-        <div>{props.previewPhoto.likes} likes</div>
-        <Like
-          list={props.list}
-          id={props.previewPhoto.id}
-          liked_by_user={props.previewPhoto.liked_by_user}
-          toggleLikeThePhoto={props.toggleLikeThePhoto}
-          isButtonEnabled={props.isButtonEnabled}
-        />
-      </div>
-      <div>
-        <PreviewPhoto
-          urls={props.previewPhoto.urls}
-          showThePhoto={props.showThePhoto}
-        />
-      </div>
-    </>
+    <div className="preview">
+      {/* <h2>PreviewPage</h2> */}
+      <NavLink to="/main" className="preview__backToMainPage">
+        <img src={backArrow} alt="BACK" />
+      </NavLink>
+      <a
+        href={previewPhoto.user ? previewPhoto.user.links.html : "#"}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="preview__imgAuthor"
+      >
+        {previewPhoto.user
+          ? previewPhoto.user.name || previewPhoto.id
+          : "noname"}
+      </a>
+      <p className="preview__imgDate">
+        Photo posted at{" "}
+        {new Date(
+          Date.parse(previewPhoto.promoted_at || previewPhoto.created_at)
+        ).toLocaleDateString("ru-Ru", {
+          year: "numeric",
+          month: "numeric",
+          day: "numeric"
+        })}
+      </p>
+      <div className="preview__imgLikes">{previewPhoto.likes} likes</div>
+      <Like
+        list={list}
+        id={previewPhoto.id}
+        liked_by_user={previewPhoto.liked_by_user}
+        toggleLikeThePhoto={toggleLikeThePhoto}
+        isButtonEnabled={isButtonEnabled}
+      />
+      <PreviewPhoto
+        urls={previewPhoto.urls}
+        showThePhoto={showThePhoto}
+        togglePhotoSize={togglePhotoSize}
+      />
+      <div className='loading'><Preloader /></div>
+    </div>
   );
 };
 

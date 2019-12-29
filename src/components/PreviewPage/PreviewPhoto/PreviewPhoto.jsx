@@ -1,14 +1,15 @@
 import React from "react";
 import Preloader from "../../Preloader/Preloader";
 
-export default props => {
-  if (props.urls) {
+export default ({ urls, showThePhoto, togglePhotoSize }) => {
+  if (urls) {
     return (
       <img
-        src={props.urls.regular}
+        src={urls.full}
         alt="img"
-        className="previewImg"
-        onLoad={props.showThePhoto}
+        className="preview__photo"
+        onLoad={showThePhoto}
+        onClick={togglePhotoSize}
       />
     );
   } else {

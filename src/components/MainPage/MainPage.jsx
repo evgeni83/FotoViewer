@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const MainPage = props => (
   <>
-    <h2>Main Page</h2>
+    <h2>Photo Viewer</h2>
     <div className="contentWrapper">
       {props.list.map((item, i) => {
         return (

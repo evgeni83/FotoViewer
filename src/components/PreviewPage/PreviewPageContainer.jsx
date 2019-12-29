@@ -23,6 +23,18 @@ class PreviewPageContainer extends Component {
     e.target.classList.add("loaded");
   };
 
+  togglePhotoSize = e => {
+    e.persist();
+    if ([...e.target.classList].find(item => item === "preview__photo_fullSize")) {
+      e.target.classList.remove("preview__photo_fullSize");
+    } else {
+      if (window.innerHeight ) {
+        
+      }
+      e.target.classList.add("preview__photo_fullSize");
+    }
+  };
+
   render() {
     return (
       <PreviewPage
@@ -31,6 +43,7 @@ class PreviewPageContainer extends Component {
         toggleLikeThePhoto={this.props.toggleLikeThePhoto}
         isButtonEnabled={this.props.isButtonEnabled}
         showThePhoto={this.showThePhoto}
+        togglePhotoSize={this.togglePhotoSize}
       />
     );
   }
