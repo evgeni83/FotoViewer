@@ -9,7 +9,7 @@ class MainPageContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoadPosible: true
+      isLoadPossible: true
     };
   }
 
@@ -21,6 +21,13 @@ class MainPageContainer extends Component {
       this.props.previewPhoto
     );
 
+    if (this.props.previewPhoto.urls) {
+      const elem = document.querySelector(`img[src="${this.props.previewPhoto.urls.thumb}"]`);
+      elem.scrollIntoView();
+    }
+
+    // this.props.list.find()
+    // this.state.scrollPosition =
     window.addEventListener("scroll", this.loadMorePhotos);
   }
 
@@ -41,15 +48,16 @@ class MainPageContainer extends Component {
     let scrollTopPosition = window.pageYOffset;
     let scrollBottomPosition = viewportHeight + scrollTopPosition;
     let distanceToBottomOfTheDocument = documentHeight - scrollBottomPosition;
+    const distanceToLoad = 250;
 
-    if (distanceToBottomOfTheDocument > 100) {
+    if (distanceToBottomOfTheDocument > distanceToLoad) {
       this.setState({
-        isLoadPosible: true
+        isLoadPossible: true
       });
     }
 
-    if (distanceToBottomOfTheDocument < 100) {
-      if (this.state.isLoadPosible) {
+    if (distanceToBottomOfTheDocument < distanceToLoad) {
+      if (this.state.isLoadPossible) {
         await this.props.incrementPagesCounter();
         this.props.getPhotos(
           this.props.pagesCounter,
@@ -58,7 +66,7 @@ class MainPageContainer extends Component {
           this.props.previewPhoto
         );
         this.setState({
-          isLoadPosible: false
+          isLoadPossible: false
         });
       }
     }
@@ -72,6 +80,8 @@ class MainPageContainer extends Component {
     }
   }
 }
+
+
 
 const mapStateToProps = state => state;
 
