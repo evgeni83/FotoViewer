@@ -22,12 +22,10 @@ class MainPageContainer extends Component {
     );
 
     if (this.props.previewPhoto.urls) {
-      const elem = document.querySelector(`img[src="${this.props.previewPhoto.urls.thumb}"]`);
+      const elem = document.querySelector(`img[src="${this.props.previewPhoto.urls.regular}"]`);
       elem.scrollIntoView();
     }
 
-    // this.props.list.find()
-    // this.state.scrollPosition =
     window.addEventListener("scroll", this.loadMorePhotos);
   }
 

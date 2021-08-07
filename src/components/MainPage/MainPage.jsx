@@ -9,7 +9,7 @@ const MainPage = props => (
         return (
           <div key={i} className="imageCard">
             <NavLink to={`/preview/${item.id}`}>
-              <img src={item.urls.thumb} alt="img" className="imageCard__img" />
+              <img src={item.urls.regular} alt="img" className="imageCard__img" />
             </NavLink>
             <a
               href={item.user.links.html}
