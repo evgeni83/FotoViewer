@@ -1,68 +1,49 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import {
-  getThePhoto,
-  toggleLikeThePhoto,
-  isButtonEnabledAC
-} from "../../actions/previewPageAction";
-import "./PreviewPage.css";
-import PreviewPage from "./PreviewPage";
+import React from 'react';
+import './PreviewPage.css';
+import PreviewPage from './PreviewPage';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-class PreviewPageContainer extends Component {
-  componentDidMount() {
-    const list = this.props.list;
-    const previewPhotoId = this.props.match.params.photoId;
-    const numberOfPages = this.props.pagesCounter;
-    const photosPerPage = this.props.photosPerPage;
-    this.props.getThePhoto(list, previewPhotoId, numberOfPages, photosPerPage);
-  }
+const PreviewPageContainer = () => {
+	const params = useParams();
+	const list = useSelector( state => state?.photos.list );
 
-  showThePhoto = e => {
-    e.persist();
-    e.target.classList.add("loaded");
-  };
+	const previewPhoto = list.find( photo => photo.id == params.id )
 
-  togglePhotoSize = e => {
-    e.persist();
-    if ([...e.target.classList].find(item => item === "preview__photo_fullSize")) {
-      e.target.classList.remove("preview__photo_fullSize");
-    } else {
-      e.target.classList.add("preview__photo_fullSize");
-    }
-  };
+	// componentDidMount() {
+	// 	const list = this.props.list;
+	// 	const previewPhotoId = this.props.match.params.photoId;
+	// 	const numberOfPages = this.props.pagesCounter;
+	// 	const photosPerPage = this.props.photosPerPage;
+	// 	this.props.getThePhoto( list, previewPhotoId, numberOfPages, photosPerPage );
+	// }
+	//
+	// showThePhoto = e => {
+	// 	e.persist();
+	// 	e.target.classList.add( 'loaded' );
+	// };
+	//
+	// togglePhotoSize = e => {
+	// 	e.persist();
+	// 	if ( [ ...e.target.classList ].find( item => item === 'preview__photo_fullSize' ) ) {
+	// 		e.target.classList.remove( 'preview__photo_fullSize' );
+	// 	} else {
+	// 		e.target.classList.add( 'preview__photo_fullSize' );
+	// 	}
+	// };
 
-  render() {
-    return (
-      <PreviewPage
-        list={this.props.list}
-        previewPhoto={this.props.previewPhoto}
-        toggleLikeThePhoto={this.props.toggleLikeThePhoto}
-        isButtonEnabled={this.props.isButtonEnabled}
-        showThePhoto={this.showThePhoto}
-        togglePhotoSize={this.togglePhotoSize}
-      />
-    );
-  }
-}
 
-const mapStateToProps = state => state;
+	return (
+		<PreviewPage
+			previewPhoto={ previewPhoto }
+			// toggleLikeThePhoto={ toggleLikeThePhoto }
+			// isButtonEnabled={ isButtonEnabled }
+			// showThePhoto={ showThePhoto }
+			// togglePhotoSize={ togglePhotoSize }
+		/>
+	);
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getThePhoto: (list, id, numberOfPages, photosPerPage) => {
-      dispatch(getThePhoto(list, id, numberOfPages, photosPerPage));
-    },
-    toggleLikeThePhoto: (list, id, liked_by_user) => {
-      dispatch(toggleLikeThePhoto(list, id, liked_by_user));
-    },
-    isButtonEnabledAC: isEnabled => {
-      dispatch(isButtonEnabledAC(isEnabled));
-    }
-  };
+	// return <h1>{ params.id }</h1>
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(PreviewPageContainer));
+export default PreviewPageContainer;
