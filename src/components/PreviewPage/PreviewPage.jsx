@@ -6,6 +6,7 @@ import backArrow from './icons8-back-arrow-100.png';
 import PreviewPhoto from './Photo';
 import { fetchPhotoForPreviewActionCreator } from '../../store/asyncAction/fetchPhotoForPreviewAction';
 import Preloader from '../Preloader/Preloader';
+import Like from './Like/Like';
 
 const PreviewPage = () => {
 	const params = useParams();
@@ -13,6 +14,8 @@ const PreviewPage = () => {
 	const photo_for_preview = useSelector( state => state?.photos.photo_for_preview );
 
 	React.useEffect( () => {
+		if ( !dispatch ) return;
+		if ( !params ) return;
 		dispatch( fetchPhotoForPreviewActionCreator( params.id ) );
 	}, [ dispatch, params ] );
 
@@ -44,17 +47,9 @@ const PreviewPage = () => {
 				} ) }
 			</p>
 			<div className="preview__imgLikes">{ photo_for_preview.likes } likes</div>
-			{/*<Like*/ }
-			{/*	list={ list }*/ }
-			{/*	id={ photo_for_preview.id }*/ }
-			{/*	liked_by_user={ photo_for_preview.liked_by_user }*/ }
-			{/*	toggleLikeThePhoto={ toggleLikeThePhoto }*/ }
-			{/*	isButtonEnabled={ isButtonEnabled }*/ }
-			{/*/>*/ }
-			<PreviewPhoto
-				src={ photo_for_preview.urls.full }
-			/>
-			{/*<div className="loading"><Preloader/></div>*/ }
+			<Like id={ photo_for_preview.id }
+				  liked_by_user={ photo_for_preview.liked_by_user }/>
+			<PreviewPhoto src={ photo_for_preview.urls.full }/>
 		</div>
 	);
 
