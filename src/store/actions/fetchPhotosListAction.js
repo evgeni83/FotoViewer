@@ -1,5 +1,6 @@
 import { unsplash } from '../../apis/unsplashAPI';
-import { setPhotosActionCreator, setIsFetchingActionCreator } from '../reducers/photosReducer';
+import { setPhotosActionCreator } from './setPhotosAction';
+import { setIsFetchingActionCreator } from './setIsFetchingAction';
 
 export const fetchPhotosList = ( { page, perPage, orderBy } ) => ( dispatch, getState ) => {
 	const bearer_token = getState().auth.bearer_token;

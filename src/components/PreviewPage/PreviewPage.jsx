@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import backArrow from './icons8-back-arrow-100.png';
 import PreviewPhoto from './Photo';
-import { fetchPhotoForPreviewActionCreator } from '../../store/asyncAction/fetchPhotoForPreviewAction';
+import { fetchPhotoForPreviewActionCreator } from '../../store/actions/fetchPhotoForPreviewAction';
 import Preloader from '../Preloader/Preloader';
 import Like from './Like/Like';
 
@@ -14,10 +14,9 @@ const PreviewPage = () => {
 	const photo_for_preview = useSelector( state => state?.photos.photo_for_preview );
 
 	React.useEffect( () => {
-		if ( !dispatch ) return;
-		if ( !params ) return;
+		if ( photo_for_preview.id === params.id ) return;
 		dispatch( fetchPhotoForPreviewActionCreator( params.id ) );
-	}, [ dispatch, params ] );
+	}, [ dispatch, params, photo_for_preview ] );
 
 
 	if ( !photo_for_preview || Object.keys( photo_for_preview ).length === 0 ) return <Preloader/>;

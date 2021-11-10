@@ -1,5 +1,6 @@
 import { unsplash } from '../../apis/unsplashAPI';
-import { setIsFetchingActionCreator, setPhotoForPreviewActionCreator } from '../reducers/photosReducer';
+import { setPhotoForPreviewActionCreator } from './setPhotoForPreviewAction';
+import { setIsFetchingActionCreator } from './setIsFetchingAction';
 
 export const fetchPhotoForPreviewActionCreator = id => ( dispatch, getState ) => {
 	const state = getState();

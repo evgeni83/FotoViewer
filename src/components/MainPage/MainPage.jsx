@@ -3,8 +3,8 @@ import './MainPage.css';
 import Preloader from '../Preloader/Preloader';
 import PhotosGrid from './PhotosGrid';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPhotosList } from '../../store/asyncAction/fetchPhotosListAction';
-import { setCurrentPageActionCreator } from '../../store/reducers/photosReducer';
+import { fetchPhotosList } from '../../store/actions/fetchPhotosListAction';
+import { setCurrentPageActionCreator } from '../../store/actions/setCurrentPageAction';
 
 const MainPage = () => {
 	const dispatch = useDispatch();

@@ -4,7 +4,7 @@ import PreviewPage from './PreviewPage/PreviewPage';
 import './App.css';
 import Home from './Home/Home';
 import { setBearerTokenActionCreator, setCodeActionCreator } from '../store/reducers/authReducer';
-import { fetchBearerTokenAction } from '../store/asyncAction/fetchBearerTokenAction';
+import { fetchBearerTokenAction } from '../store/actions/fetchBearerTokenAction';
 import { useDispatch, useSelector } from 'react-redux';
 
 const App = () => {

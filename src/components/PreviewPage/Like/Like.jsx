@@ -2,41 +2,28 @@ import React from 'react';
 import liked from './liked.png';
 import unliked from './unliked.png';
 import './Like.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { setBearerTokenActionCreator } from '../../../store/reducers/authReducer';
+import { useDispatch } from 'react-redux';
+import { fetchLikePhotoActionCreator } from '../../../store/actions/fetchLikePhotoAction';
 
 const Like = ( { id, liked_by_user } ) => {
 	const dispatch = useDispatch();
-	const bearer_token = useSelector( state => state?.auth.bearer_token );
 
 	let heart = unliked;
-
-	const likeThePhoto = event => {
-		console.log( '+', event.currentTarget.id );
-		fetch( `https://api.unsplash.com/photos/${ id }/like`, {
-			method: 'POST',
-			headers: { Authorization: `${process.env.REACT_APP_ACCESS_KEY}` },
-		} ).then( res => res.json() )
-			.then( response => {
-				console.log( response );
-			} );
-	};
-
-	const unlikeThePhoto = event => {
-		console.log( '-', event.currentTarget.id );
-	};
-
-	let clickHandler = likeThePhoto;
+	let method = 'POST';
 
 	if ( liked_by_user ) {
 		heart = liked;
-		clickHandler = unlikeThePhoto;
+		method = 'DELETE';
 	}
+
+	const likeThePhoto = () => {
+		dispatch( fetchLikePhotoActionCreator( id, method ) );
+	};
 
 	return (
 		<button className="likeButton"
 				id={ id }
-				onClick={ clickHandler }><img src={ heart } alt="like" className="likeButtonImage"/></button>
+				onClick={ likeThePhoto }><img src={ heart } alt="like" className="likeButtonImage"/></button>
 	);
 };
 

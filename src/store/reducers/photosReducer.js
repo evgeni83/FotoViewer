@@ -7,10 +7,11 @@ let initialState = {
 	is_fetching: false,
 };
 
-const SET_PHOTOS = 'SET_PHOTOS';
-const SET_PHOTO_FOR_PREVIEW = 'SET_PHOTO_FOR_PREVIEW';
-const SET_IS_FETCHING = 'SET_IS_FETCHING';
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+export const SET_PHOTOS = 'SET_PHOTOS';
+export const UPDATE_PHOTOS = 'UPDATE_PHOTOS';
+export const SET_PHOTO_FOR_PREVIEW = 'SET_PHOTO_FOR_PREVIEW';
+export const SET_IS_FETCHING = 'SET_IS_FETCHING';
+export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 
 export const photosReducer = ( state = initialState, action ) => {
 	switch ( action.type ) {
@@ -26,12 +27,11 @@ export const photosReducer = ( state = initialState, action ) => {
 		case SET_IS_FETCHING:
 			return { ...state, is_fetching: action.payload };
 
+		case UPDATE_PHOTOS:
+			return { ...state, list: action.payload };
+
 		default:
 			return state;
 	}
 };
 
-export const setPhotosActionCreator = payload => ( { type: SET_PHOTOS, payload } );
-export const setCurrentPageActionCreator = payload => ( { type: SET_CURRENT_PAGE, payload } );
-export const setPhotoForPreviewActionCreator = payload => ( { type: SET_PHOTO_FOR_PREVIEW, payload } );
-export const setIsFetchingActionCreator = payload => ( { type: SET_IS_FETCHING, payload } );
