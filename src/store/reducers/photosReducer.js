@@ -1,15 +1,27 @@
 let initialState = {
 	list: [],
-	is_fetching: false
+	current_page: 1,
+	per_page: 20,
+	order_by: 'latest',
+	photo_for_preview: {},
+	is_fetching: false,
 };
 
-const GET_PHOTOS = 'GET_PHOTOS';
+const SET_PHOTOS = 'SET_PHOTOS';
+const SET_PHOTO_FOR_PREVIEW = 'SET_PHOTO_FOR_PREVIEW';
 const SET_IS_FETCHING = 'SET_IS_FETCHING';
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 
 export const photosReducer = ( state = initialState, action ) => {
 	switch ( action.type ) {
-		case GET_PHOTOS:
-			return { ...state, list: action.payload };
+		case SET_PHOTOS:
+			return { ...state, list: state.list.concat( ...action.payload ) };
+
+		case SET_CURRENT_PAGE:
+			return { ...state, current_page: action.payload };
+
+		case SET_PHOTO_FOR_PREVIEW:
+			return { ...state, photo_for_preview: action.payload };
 
 		case SET_IS_FETCHING:
 			return { ...state, is_fetching: action.payload };
@@ -19,5 +31,7 @@ export const photosReducer = ( state = initialState, action ) => {
 	}
 };
 
-export const getPhotosActionCreator = list => ( { type: GET_PHOTOS, payload: list } );
-export const setIsFetchingActionCreator = value => ( { type: SET_IS_FETCHING, payload: value } );
+export const setPhotosActionCreator = payload => ( { type: SET_PHOTOS, payload } );
+export const setCurrentPageActionCreator = payload => ( { type: SET_CURRENT_PAGE, payload } );
+export const setPhotoForPreviewActionCreator = payload => ( { type: SET_PHOTO_FOR_PREVIEW, payload } );
+export const setIsFetchingActionCreator = payload => ( { type: SET_IS_FETCHING, payload } );

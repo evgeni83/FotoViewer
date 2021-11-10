@@ -1,39 +1,51 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import './MainPage.css';
+import Preloader from '../Preloader/Preloader';
+import PhotosGrid from './PhotosGrid';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPhotosList } from '../../store/asyncAction/fetchPhotosListAction';
+import { setCurrentPageActionCreator } from '../../store/reducers/photosReducer';
 
-const MainPage = props => (
-	<>
-		<h2>Photo Viewer</h2>
-		<div className="contentWrapper">
-			{ props.list.map( ( item, i ) => {
-				return (
-					<div key={ item.id } className="imageCard">
-						<Link to={ `/preview/${ item.id }` }>
-							<img src={ item.urls.regular } alt="img" className="imageCard__img"/>
-						</Link>
-						<a
-							href={ item.user.links.html }
-							target="_blank"
-							rel="noopener noreferrer"
-							className="imageCard__imgAuthorlink"
-						>
-							{ item.user.name || item.id }
-						</a>
-						<p className="imageCard__imgDate">
-							{ new Date(
-								Date.parse( item.promoted_at || item.created_at ),
-							).toLocaleDateString( 'ru-RU', {
-								year: 'numeric',
-								month: 'numeric',
-								day: 'numeric',
-							} ) }
-						</p>
-						<p className="imageCard__likes">{ item.likes }</p>
-					</div>
-				);
-			} ) }
-		</div>
-	</>
-);
+const MainPage = () => {
+	const dispatch = useDispatch();
+	const { is_fetching, list, current_page, per_page, order_by } = useSelector( state => state?.photos );
+
+	const upLoadPhotosOnScroll = event => {
+		const scrollHeight = Math.max(
+			document.body.scrollHeight, document.documentElement.scrollHeight,
+			document.body.offsetHeight, document.documentElement.offsetHeight,
+			document.body.clientHeight, document.documentElement.clientHeight,
+		);
+		const scrolledViewportBottom = window.pageYOffset + event.target.documentElement.clientHeight;
+
+		if ( scrollHeight - scrolledViewportBottom < 100 ) {
+			if ( is_fetching ) {
+				return;
+			}
+			dispatch( setCurrentPageActionCreator( current_page + 1 ) );
+		}
+	};
+
+	React.useEffect( () => {
+		if ( list.length === current_page * per_page ) return;
+		dispatch( fetchPhotosList( { page: current_page, perPage: per_page, orderBy: order_by } ) );
+	}, [ dispatch, list, current_page, per_page, order_by ] );
+
+	React.useEffect( () => {
+		window.addEventListener( 'scroll', upLoadPhotosOnScroll );
+
+		return () => {
+			window.removeEventListener( 'scroll', upLoadPhotosOnScroll );
+		};
+	} );
+
+	return list.length > 0 ?
+		<div className="main-page">
+			<h1 className="page-title">Photo Viewer</h1>
+			<PhotosGrid list={ list }/>
+			{ is_fetching ? <Preloader/> : null }
+		</div> :
+		is_fetching ? <Preloader/> : <h1 className="page-title">No photos</h1>;
+};
 
 export default MainPage;

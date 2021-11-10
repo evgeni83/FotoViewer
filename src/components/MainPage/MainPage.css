@@ -1,15 +1,35 @@
+.main-page {
+    padding: 30px 20px 100px;
+}
+
+.page-title {
+    margin: 0 0 20px;
+    text-align: center;
+}
+
 .contentWrapper {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    margin: 0 -10px;
 }
 
 .imageCard {
     height: 40vh;
-    flex: 1 1 20%;
+    flex: 1 1 250px;
     position: relative;
     overflow: hidden;
-    margin: 10px;
+    padding: 10px;
+}
+
+.imageCard__link {
+    display: block;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 0 5px black;
 }
 
 .imageCard__img {
@@ -17,7 +37,8 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
-    cursor: zoom-in;
+    transform: scale(1);
+    transition: transform 0.5s;
 }
 
 .imageCard__imgAuthorlink,
@@ -28,7 +49,7 @@
     left: 0;
     text-decoration: none;
     padding: 10px;
-    margin: 10px;
+    margin: 20px;
     color: black;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 5px;
@@ -65,4 +86,8 @@
 .imageCard:hover .imageCard__imgDate {
     visibility: visible;
     opacity: 1;
+}
+
+.imageCard:hover .imageCard__img {
+    transform: scale(1.05);
 }

@@ -9,7 +9,7 @@
 .preview__imgDate,
 .preview__imgLikes,
 .likeButton {
-    position: absolute;
+    position: fixed;
     color: black;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 5px;
@@ -49,17 +49,33 @@
     border: none;
 }
 
+.preview__photo-wrapper {
+    height: 100vh;
+}
+
+.preview__photo-wrapper--full {
+    height: auto;
+    min-height: 100vh;
+}
+
 .preview__photo {
     display: block;
     object-fit: contain;
-    object-position: top;
-    max-height: 100vh;
+    object-position: center;
     height: 100%;
     width: 100%;
-    /*visibility: hidden;*/
-    /*opacity: 0;*/
+    visibility: hidden;
+    opacity: 0;
     transition: all 1s;
-    cursor: zoom-in;
+    cursor: pointer;
+}
+
+.preview__preloader {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
 }
 
 .preview__photo.loaded {

@@ -1,6 +1,6 @@
 import { setBearerTokenActionCreator } from '../reducers/authReducer';
 
-export const fetchBearerToken = code => dispatch => {
+export const fetchBearerTokenAction = code => dispatch => {
 	const data = new FormData();
 	data.set( 'client_id', process.env.REACT_APP_ACCESS_KEY );
 	data.set( 'client_secret', process.env.REACT_APP_SECRET );
