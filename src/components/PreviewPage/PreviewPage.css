@@ -49,6 +49,10 @@
     border: none;
 }
 
+.likeButton:disabled {
+    opacity: 0.3;
+}
+
 .preview__photo-wrapper {
     height: 100vh;
 }
