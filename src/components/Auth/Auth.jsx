@@ -1,11 +1,12 @@
 import React from 'react';
 import { redirectToAuthPage } from '../../apis/unsplashAPI';
+import './Auth.css';
 
 const Auth = () => {
 	return (
-		<div>
-			<h1>You need to log in as unsplash user</h1>
-			<button onClick={ redirectToAuthPage }>Authorize</button>
+		<div className="loginScreen">
+			<h1 className="loginScreen__title">You need to log in as unsplash user</h1>
+			<button className="loginScreen__button" onClick={ redirectToAuthPage }>Log in</button>
 		</div>
 	);
 };

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route, Routes, useSearchParams } from 'react-router-dom';
+import Auth from './Auth/Auth';
+import MainPage from './MainPage/MainPage';
 import PreviewPage from './PreviewPage/PreviewPage';
 import './App.css';
-import Home from './Home/Home';
 import { setBearerTokenActionCreator, setCodeActionCreator } from '../store/reducers/authReducer';
 import { fetchBearerTokenAction } from '../store/actions/fetchBearerTokenAction';
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,10 +40,15 @@ const App = () => {
 
 	return (
 		<div className="container">
-			<Routes>
-				<Route path="/" element={ <Home/> }/>
-				<Route path="/preview/:id" element={ <PreviewPage /> }/>
-			</Routes>
+			{
+				bearer_token === '' ?
+					<Auth/> :
+					<Routes>
+						<Route path="/" element={ <MainPage/> }/>
+						<Route path="/preview/:id" element={ <PreviewPage/> }/>
+					</Routes>
+			}
+
 		</div>
 	);
 };

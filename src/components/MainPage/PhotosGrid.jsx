@@ -3,7 +3,7 @@ import PhotoCard from './PhotoCard';
 
 const PhotosGrid = ( { list } ) => (
 	<div className="contentWrapper">
-		{ list.map( photo => <PhotoCard key={ photo.id } photo={ photo }/> ) }
+		{ list.map( photo => <PhotoCard key={ photo.id + Math.random() } photo={ photo }/> ) }
 	</div>
 );
 

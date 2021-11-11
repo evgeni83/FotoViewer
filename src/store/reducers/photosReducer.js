@@ -5,10 +5,10 @@ let initialState = {
 	order_by: 'latest',
 	photo_for_preview: {},
 	is_fetching: false,
-	is_like_fetching: false
+	is_like_fetching: false,
 };
 
-export const ADD_PHOTOS = 'SET_PHOTOS';
+export const ADD_PHOTOS = 'ADD_PHOTOS';
 export const UPDATE_PHOTOS = 'UPDATE_PHOTOS';
 export const SET_PHOTO_FOR_PREVIEW = 'SET_PHOTO_FOR_PREVIEW';
 export const SET_IS_FETCHING = 'SET_IS_FETCHING';

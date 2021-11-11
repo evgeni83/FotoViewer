@@ -18,7 +18,7 @@ const MainPage = () => {
 		);
 		const scrolledViewportBottom = window.pageYOffset + event.target.documentElement.clientHeight;
 
-		if ( scrollHeight - scrolledViewportBottom < 100 ) {
+		if ( scrollHeight - scrolledViewportBottom < 200 ) {
 			if ( is_fetching ) {
 				return;
 			}
