@@ -3,7 +3,7 @@ import { Route, Routes, useSearchParams } from 'react-router-dom';
 import Auth from './Auth/Auth';
 import MainPage from './MainPage/MainPage';
 import PreviewPage from './PreviewPage/PreviewPage';
-import './App.css';
+import styles from './app.module.scss';
 import { setBearerTokenActionCreator, setCodeActionCreator } from '../store/reducers/authReducer';
 import { fetchBearerTokenAction } from '../store/actions/fetchBearerTokenAction';
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,7 +39,7 @@ const App = () => {
 	}, [ bearer_token, code, dispatch, searchParams ] );
 
 	return (
-		<div className="container">
+		<div className={ styles.container }>
 			{
 				bearer_token === '' ?
 					<Auth/> :
@@ -48,7 +48,6 @@ const App = () => {
 						<Route path="/preview/:id" element={ <PreviewPage/> }/>
 					</Routes>
 			}
-
 		</div>
 	);
 };

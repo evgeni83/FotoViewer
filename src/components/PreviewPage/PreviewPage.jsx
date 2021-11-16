@@ -1,17 +1,28 @@
 import React from 'react';
-import './PreviewPage.css';
-import { Link, useParams } from 'react-router-dom';
+import styles from './previewPage.module.scss';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import backArrow from './icons8-back-arrow-100.png';
-import PreviewPhoto from './Photo';
 import { fetchPhotoForPreviewActionCreator } from '../../store/actions/fetchPhotoForPreviewAction';
+import Photo from './Photo/Photo';
 import Preloader from '../Preloader/Preloader';
-import Like from './Like/Like';
+import LikeButton from './LikeButton/LikeButton';
+import BackArrow from './BackArrow/BackArrow';
+import Author from './Author/Author';
+import PostedDate from './PostedDate/PostedDate';
+import LikesAmount from './LikesAmount/LikesAmount';
 
 const PreviewPage = () => {
 	const params = useParams();
 	const dispatch = useDispatch();
 	const photo_for_preview = useSelector( state => state?.photos.photo_for_preview );
+
+	const date = new Date(
+		Date.parse( photo_for_preview.promoted_at || photo_for_preview.created_at ),
+	).toLocaleDateString( 'ru-Ru', {
+		year: 'numeric',
+		month: 'numeric',
+		day: 'numeric',
+	} );
 
 	React.useEffect( () => {
 		if ( photo_for_preview.id === params.id ) return;
@@ -22,37 +33,15 @@ const PreviewPage = () => {
 	if ( !photo_for_preview || Object.keys( photo_for_preview ).length === 0 ) return <Preloader/>;
 
 	return (
-		<div className="preview">
-			{/* <h2>PreviewPage</h2> */ }
-			<Link to="/" className="preview__backToMainPage">
-				<img src={ backArrow } alt="BACK"/>
-			</Link>
-			<a href={ photo_for_preview.user ? photo_for_preview.user.links.html : '#' }
-			   target="_blank"
-			   rel="noopener noreferrer"
-			   className="preview__imgAuthor">
-				{ photo_for_preview.user
-					? photo_for_preview.user.name || photo_for_preview.id
-					: 'noname' }
-			</a>
-			<p className="preview__imgDate">
-				Photo posted at{ ' ' }
-				{ new Date(
-					Date.parse( photo_for_preview.promoted_at || photo_for_preview.created_at ),
-				).toLocaleDateString( 'ru-Ru', {
-					year: 'numeric',
-					month: 'numeric',
-					day: 'numeric',
-				} ) }
-			</p>
-			<div className="preview__imgLikes">{ photo_for_preview.likes } likes</div>
-			<Like id={ photo_for_preview.id }
-				  liked_by_user={ photo_for_preview.liked_by_user }/>
-			<PreviewPhoto src={ photo_for_preview.urls.full }/>
-		</div>
+		<main className={ styles.content }>
+			<BackArrow/>
+			<Author user={ photo_for_preview.user } id={ photo_for_preview.id }/>
+			<PostedDate date={ date }/>
+			<LikesAmount likes={ photo_for_preview.likes }/>
+			<LikeButton id={ photo_for_preview.id } liked_by_user={ photo_for_preview.liked_by_user }/>
+			<Photo src={ photo_for_preview.urls.full } alt={ photo_for_preview.alt_description }/>
+		</main>
 	);
-
-	// return <h1>{ params.id }</h1>
 };
 
 export default PreviewPage;

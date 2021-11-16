@@ -1,4 +1,4 @@
-.loginScreen {
+.wrapper {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -6,7 +6,7 @@
     justify-content: center;
 }
 
-.loginScreen__button {
+.button {
     padding: 10px 30px;
     border: none;
     margin: 20px 0 0;

@@ -1,7 +1,7 @@
 import React from 'react';
-import './MainPage.css';
+import styles from './mainPage.module.scss';
 import Preloader from '../Preloader/Preloader';
-import PhotosGrid from './PhotosGrid';
+import PhotosGrid from './PhotosGrid/PhotosGrid';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPhotosList } from '../../store/actions/fetchPhotosListAction';
 import { setCurrentPageActionCreator } from '../../store/actions/setCurrentPageAction';
@@ -40,11 +40,11 @@ const MainPage = () => {
 	} );
 
 	return list.length > 0 ?
-		<div className="main-page">
-			<h1 className="page-title">Photo Viewer</h1>
+		<main className={ styles.wrapper }>
+			<h1 className={ styles.title }>Photo Viewer</h1>
 			<PhotosGrid list={ list }/>
 			{ is_fetching ? <Preloader/> : null }
-		</div> :
+		</main> :
 		is_fetching ? <Preloader/> : <h1 className="page-title">No photos</h1>;
 };
 

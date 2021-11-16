@@ -1,6 +1,11 @@
 import React from 'react';
 import preloader from './5-1.svg';
+import styles from './preloader.module.scss';
 
-export default () => <div className="preloaderWrapper">
-	<img src={ preloader } alt="preloader" className="preloader"/>
-</div>;
+const Preloader = () => (
+	<div className={ styles.wrapper }>
+		<img src={ preloader } alt="loading..."/>
+	</div>
+);
+
+export default Preloader;
