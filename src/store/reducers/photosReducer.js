@@ -1,7 +1,7 @@
 let initialState = {
 	list: [],
 	current_page: 1,
-	per_page: 20,
+	per_page: 30,
 	order_by: 'latest',
 	photo_for_preview: {},
 	is_fetching: false,

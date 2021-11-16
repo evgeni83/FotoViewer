@@ -5,6 +5,7 @@ import PhotosGrid from './PhotosGrid/PhotosGrid';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPhotosList } from '../../store/actions/fetchPhotosListAction';
 import { setCurrentPageActionCreator } from '../../store/actions/setCurrentPageAction';
+import { setIsFetchingActionCreator } from '../../store/actions/setIsFetchingAction';
 
 const MainPage = () => {
 	const dispatch = useDispatch();
@@ -22,12 +23,14 @@ const MainPage = () => {
 			if ( is_fetching ) {
 				return;
 			}
+			dispatch( setIsFetchingActionCreator( true ) );
 			dispatch( setCurrentPageActionCreator( current_page + 1 ) );
 		}
 	};
 
 	React.useEffect( () => {
 		if ( list.length === current_page * per_page ) return;
+		dispatch( setIsFetchingActionCreator( true ) );
 		dispatch( fetchPhotosList( { page: current_page, perPage: per_page, orderBy: order_by } ) );
 	}, [ dispatch, list, current_page, per_page, order_by ] );
 
@@ -39,13 +42,20 @@ const MainPage = () => {
 		};
 	} );
 
-	return list.length > 0 ?
+
+	if ( list.length === 0 ) {
+		if ( is_fetching ) {
+			return <Preloader/>;
+		}
+		return <h1 className={ styles.title }>No photos</h1>;
+	}
+
+	return (
 		<main className={ styles.wrapper }>
 			<h1 className={ styles.title }>Photo Viewer</h1>
 			<PhotosGrid list={ list }/>
-			{ is_fetching ? <Preloader/> : null }
-		</main> :
-		is_fetching ? <Preloader/> : <h1 className="page-title">No photos</h1>;
+		</main>
+	);
 };
 
 export default MainPage;
