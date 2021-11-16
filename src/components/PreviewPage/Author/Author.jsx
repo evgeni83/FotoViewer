@@ -1,15 +1,11 @@
 import React from 'react';
 import styles from './author.module.scss';
 
-const Author = ( { user, id } ) => (
-	<a href={ user ? user.links.html : '#' }
+const Author = ( { href, name } ) => (
+	<a href={ href }
 	   target="_blank"
 	   rel="noopener noreferrer"
-	   className={ styles.link }>
-		{ user
-			? user.name || id
-			: 'noname' }
-	</a>
+	   className={ styles.link }>{ name }</a>
 );
 
 

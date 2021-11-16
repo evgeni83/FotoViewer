@@ -35,7 +35,7 @@ const PreviewPage = () => {
 	return (
 		<main className={ styles.content }>
 			<BackArrow/>
-			<Author user={ photo_for_preview.user } id={ photo_for_preview.id }/>
+			<Author href={ photo_for_preview.user.links.html } name={ photo_for_preview.user.name }/>
 			<PostedDate date={ date }/>
 			<LikesAmount likes={ photo_for_preview.likes }/>
 			<LikeButton id={ photo_for_preview.id } liked_by_user={ photo_for_preview.liked_by_user }/>

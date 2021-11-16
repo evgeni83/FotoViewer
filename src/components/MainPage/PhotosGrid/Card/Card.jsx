@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styles from './card.module.scss';
+import Image from './Image/Image';
 
 const Card = ( { photo } ) => {
 	const date = new Date(
@@ -15,9 +15,7 @@ const Card = ( { photo } ) => {
 
 	return (
 		<div className={ styles.item } id={ photo.id }>
-			<Link to={ `/preview/${ photo.id }` } className={ styles.item__link }>
-				<img src={ photo.urls.regular } alt="img" className={ styles.item__img }/>
-			</Link>
+			<Image id={ photo.id } src={ photo.urls.regular } alt={ photo.alt_description }/>
 			<a href={ photo.user.links.html }
 			   target="_blank"
 			   rel="noopener noreferrer"
