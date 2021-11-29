@@ -1,17 +1,13 @@
-import Unsplash from "unsplash-js";
+import { createApi } from 'unsplash-js';
 
-export const unsplash = new Unsplash( {
-    accessKey: process.env.REACT_APP_ACCESS_KEY,
-    secret: process.env.REACT_APP_SECRET,
-    callbackUrl: process.env.REACT_APP_CALLBACK_URL
-    // ""
-} );
+export const unsplash = createApi( { accessKey: process.env.REACT_APP_ACCESS_KEY } );
 
-export const authenticationUrl = unsplash.auth.getAuthenticationUrl( [
-    "public",
-    "write_likes"
-] );
+let authenticationUrl = 'https://unsplash.com/oauth/authorize';
+authenticationUrl += '?client_id=' + process.env.REACT_APP_ACCESS_KEY;
+authenticationUrl += '&redirect_uri=' + process.env.REACT_APP_CALLBACK_URL;
+authenticationUrl += '&response_type=code';
+authenticationUrl += '&scope=public+write_likes';
 
 export const redirectToAuthPage = () => {
-    window.location.assign( authenticationUrl );
+	window.location.assign( authenticationUrl );
 };
